@@ -102,6 +102,16 @@ export interface MotionModalData {
   disableLabel: string;
 }
 
+export interface EasterEggData {
+  konamiTagline: string;
+  jokeTitles: string[];
+  consoleAscii: string;
+  consoleMessage: string;
+  consoleHints: string[];
+  devToast: string;
+  gravityKeys: string;
+}
+
 export interface SiteData {
   nav: NavItem[];
   hero: HeroData;
@@ -111,6 +121,7 @@ export interface SiteData {
   lookingFor: LookingForData;
   socials: SocialLink[];
   motionModal: MotionModalData;
+  easterEggs: EasterEggData;
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -274,5 +285,36 @@ export const siteData: SiteData = {
       "This site uses animations and motion effects for a richer experience. You can disable them if you prefer a calmer browsing.",
     enableLabel: "Enable motion",
     disableLabel: "Keep it calm",
+  },
+
+  easterEggs: {
+    konamiTagline: "Full-Snack Developer 🍕",
+    jokeTitles: [
+      "CSS Sorcerer",
+      "Bug Whisperer",
+      "Senior Googler",
+      "Console.log Artisan",
+      "404 Ninja",
+      "Git Blame Survivor",
+    ],
+    consoleAscii: [
+      "╔══════════════════════════════════════╗",
+      "║  Hey there, fellow inspector! 👀     ║",
+      "║  Since you're digging in the         ║",
+      "║  console… we should definitely talk. ║",
+      "║                                      ║",
+      "║  → hello@example.com                 ║",
+      "╚══════════════════════════════════════╝",
+    ].join("\n"),
+    consoleMessage:
+      "You're inspecting? Nice. Curiosity is a great trait in a developer.",
+    consoleHints: [
+      "🕹️  ↑ ↑ ↓ ↓ ← → ← → B A",
+      "🖱️  Click the name. A lot.",
+      "⌨️  Type \"dev\"",
+      "🌍  Type \"gravity\"",
+    ],
+    devToast: "🧑‍💻 Fun fact: this entire site was built in a weekend with way too much coffee.",
+    gravityKeys: "gravity",
   },
 };
