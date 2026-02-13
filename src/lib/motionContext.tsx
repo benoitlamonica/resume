@@ -12,11 +12,17 @@ interface MotionContextValue {
   prefersReducedMotion: boolean;
   /** Manual toggle override */
   toggleReducedMotion: () => void;
+  /** Whether the user has already made a motion choice (modal dismissed) */
+  hasChosenMotion: boolean;
+  /** Set motion preference explicitly (used by the modal) */
+  setMotionPreference: (reduceMotion: boolean) => void;
 }
 
 const MotionContext = createContext<MotionContextValue>({
   prefersReducedMotion: false,
   toggleReducedMotion: () => {},
+  hasChosenMotion: false,
+  setMotionPreference: () => {},
 });
 
 export function MotionProvider({ children }: { children: ReactNode }) {
@@ -47,10 +53,16 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     });
   }, [osPreference]);
 
+  const setMotionPreference = useCallback((reduceMotion: boolean) => {
+    setManualOverride(reduceMotion);
+    localStorage.setItem('reduce-motion', String(reduceMotion));
+  }, []);
+
   const prefersReducedMotion = manualOverride ?? osPreference;
+  const hasChosenMotion = manualOverride !== null;
 
   return (
-    <MotionContext.Provider value={{ prefersReducedMotion, toggleReducedMotion }}>
+    <MotionContext.Provider value={{ prefersReducedMotion, toggleReducedMotion, hasChosenMotion, setMotionPreference }}>
       {children}
     </MotionContext.Provider>
   );

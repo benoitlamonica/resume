@@ -1,6 +1,7 @@
 import { Nav } from './components/Nav';
 import { NoiseOverlay } from './components/NoiseOverlay';
 import { SpotlightCursor } from './components/SpotlightCursor';
+import { MotionModal } from './components/MotionModal';
 import { HeroSection } from './sections/HeroSection';
 import { AISection } from './sections/AISection';
 import { ExperienceSection } from './sections/ExperienceSection';
@@ -15,6 +16,7 @@ function Divider() {
 export default function App() {
   return (
     <>
+      <MotionModal />
       <NoiseOverlay />
       <SpotlightCursor />
       <Nav />

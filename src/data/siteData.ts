@@ -95,6 +95,13 @@ export interface LookingForData {
   preference: string;
 }
 
+export interface MotionModalData {
+  title: string;
+  description: string;
+  enableLabel: string;
+  disableLabel: string;
+}
+
 export interface SiteData {
   nav: NavItem[];
   hero: HeroData;
@@ -103,6 +110,7 @@ export interface SiteData {
   projects: ProjectEntry[];
   lookingFor: LookingForData;
   socials: SocialLink[];
+  motionModal: MotionModalData;
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -259,4 +267,12 @@ export const siteData: SiteData = {
       icon: "linkedin",
     },
   ],
+
+  motionModal: {
+    title: "Motion & Animations",
+    description:
+      "This site uses animations and motion effects for a richer experience. You can disable them if you prefer a calmer browsing.",
+    enableLabel: "Enable motion",
+    disableLabel: "Keep it calm",
+  },
 };
