@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { siteData } from '../data/siteData';
-import { Section } from '../components/Section';
-import { Button } from '../components/Button';
-import { useReducedMotion } from '../lib/motionContext';
-import { getFadeUpVariants, getStaggerContainer } from '../lib/animations';
+import { siteData } from '@/data/siteData';
+import { Section } from '@/components/Section';
+import { Button } from '@/components/Button';
+import { useReducedMotion } from '@/lib/motionContext';
+import { getFadeUpVariants, getStaggerContainer } from '@/lib/animations';
 
 export function LookingForSection() {
   const { lookingFor, socials } = siteData;
