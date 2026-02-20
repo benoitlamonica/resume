@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { siteData } from '../data/siteData';
 import { Section } from '../components/Section';
 import { Button } from '../components/Button';
@@ -14,6 +14,16 @@ export function HeroSection() {
   const fadeUp = getFadeUpVariants(prefersReducedMotion);
   const stagger = getStaggerContainer(prefersReducedMotion);
   const konamiActive = useKonamiCode();
+
+  // ── Parallax: hero zooms out & drifts as user scrolls away ──
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],   // 0 at top, 1 when bottom edge hits viewport top
+  });
+  const parallaxY     = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const parallaxScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const parallaxOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // ── Click-name joke titles ──
   const [clickCount, setClickCount] = useState(0);
@@ -36,15 +46,19 @@ export function HeroSection() {
   const emailLink = socials.find((s) => s.icon === 'email')?.url ?? '#';
 
   return (
-    <Section id="hero" fullBleed className="relative min-h-svh flex items-center justify-center py-32 overflow-hidden">
+    <Section id="hero" fullBleed className="relative min-h-svh flex items-center justify-center py-32 overflow-hidden" ref={heroRef}>
       <HeroBackground />
 
       <motion.div
-        variants={stagger}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center"
+        style={prefersReducedMotion ? {} : { y: parallaxY, scale: parallaxScale, opacity: parallaxOpacity }}
+        className="will-change-transform"
       >
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center"
+        >
         {/* Greeting pill */}
         <motion.div variants={fadeUp} className="mb-6">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white/60 backdrop-blur-sm">
@@ -140,6 +154,7 @@ export function HeroSection() {
             ↓
           </motion.div>
         </motion.div>
+      </motion.div>
       </motion.div>
     </Section>
   );

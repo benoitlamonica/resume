@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '../lib/motionContext';
 import { getFadeUpVariants } from '../lib/animations';
@@ -14,19 +14,23 @@ interface SectionProps {
   fullBleed?: boolean;
 }
 
-export function Section({
-  id,
-  title,
-  subtitle,
-  children,
-  className = '',
-  fullBleed = false,
-}: SectionProps) {
+export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
+  {
+    id,
+    title,
+    subtitle,
+    children,
+    className = '',
+    fullBleed = false,
+  },
+  ref,
+) {
   const { prefersReducedMotion } = useReducedMotion();
   const variants = getFadeUpVariants(prefersReducedMotion);
 
   return (
     <section
+      ref={ref}
       id={id}
       className={`relative ${fullBleed ? '' : 'mx-auto max-w-6xl px-4 sm:px-6'} ${className}`}
     >
@@ -53,4 +57,4 @@ export function Section({
       {children}
     </section>
   );
-}
+});
