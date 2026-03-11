@@ -49,7 +49,7 @@ export function LookingForSection() {
 
         <motion.div variants={fadeUp}>
           <Button href={emailLink} variant="primary">
-            Let's talk →
+            {"Let's talk ->"}
           </Button>
         </motion.div>
       </motion.div>
